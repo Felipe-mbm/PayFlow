@@ -27,6 +27,7 @@ public class Transactional {
     @CurrentTimestamp
     private OffsetDateTime dateTime;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private Status status;
 

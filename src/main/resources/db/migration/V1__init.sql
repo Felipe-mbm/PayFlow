@@ -1,9 +1,8 @@
-CREATE DATABASE payflow;
-
 CREATE TABLE customer
 (
     id    VARCHAR(40) PRIMARY KEY DEFAULT gen_random_UUID(),
     name  VARCHAR(255) NOT NULL,
+    tax_id VARCHAR(255) NOT NULL UNIQUE,
     email VARCHAR(255) NOT NULL UNIQUE,
     cellphone VARCHAR(20) NOT NULL UNIQUE
 );
@@ -11,7 +10,7 @@ CREATE TABLE customer
 CREATE TABLE transaction
 (
     id VARCHAR(255) PRIMARY KEY DEFAULT gen_random_uuid(),
-    amount NUMERIC(10,2) NOT NULL,
+    amount INTEGER NOT NULL,
     date_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
     status VARCHAR(100) NOT NULL,
     external_id VARCHAR(255) NOT NULL,
