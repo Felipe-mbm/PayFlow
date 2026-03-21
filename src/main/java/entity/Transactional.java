@@ -1,9 +1,7 @@
 package entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import enums.Status;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,11 +17,24 @@ import java.time.OffsetDateTime;
 @Table(name = "transaction")
 public class Transactional {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
-    private BigDecimal amount;
+
+    @Column(name = "amount")
+    private Integer amount;
 
     @CurrentTimestamp
     private OffsetDateTime dateTime;
+
+    @Column(name = "status")
+    private Status status;
+
+    @Column(name = "external_id")
+    private String externalId;
+
+    @Column(name = "pix_key", length = 500)
+    private String pixKey;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")

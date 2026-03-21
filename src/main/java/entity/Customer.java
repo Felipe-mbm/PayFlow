@@ -26,8 +26,4 @@ public class Customer {
 
     @Column(name = "cellphone", nullable = false)
     private String cellphone;
-
-    @Column(name = "taxId", nullable = false)
-    private String taxId;
-
 }
