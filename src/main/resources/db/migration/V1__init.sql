@@ -7,7 +7,7 @@ CREATE TABLE customer
     cellphone VARCHAR(20) NOT NULL UNIQUE
 );
 
-CREATE TABLE transaction
+CREATE TABLE payment
 (
     id VARCHAR(255) PRIMARY KEY DEFAULT gen_random_uuid(),
     amount INTEGER NOT NULL,
@@ -17,5 +17,5 @@ CREATE TABLE transaction
     pix_key VARCHAR(255) NOT NULL,
     customer_id VARCHAR (40),
 
-    CONSTRAINT fk_transaction FOREIGN KEY (customer_id) REFERENCES customer(id) ON DELETE CASCADE
+    CONSTRAINT fk_payment FOREIGN KEY (customer_id) REFERENCES customer(id) ON DELETE CASCADE
 );

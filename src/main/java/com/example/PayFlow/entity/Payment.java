@@ -1,21 +1,20 @@
-package entity;
+package com.example.PayFlow.entity;
 
-import enums.Status;
+import com.example.PayFlow.enums.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CurrentTimestamp;
 
-import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "transaction")
-public class Transactional {
+@Table(name = "payment")
+public class Payment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
