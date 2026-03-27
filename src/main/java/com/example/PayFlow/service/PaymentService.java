@@ -4,6 +4,7 @@ import com.example.PayFlow.client.AbacatePayClient;
 import com.example.PayFlow.dto.CustomerPixDTO;
 import com.example.PayFlow.dto.PixRequestDTO;
 import com.example.PayFlow.dto.PixResponseDTO;
+import com.example.PayFlow.dto.WebhookPayloadDTO;
 import com.example.PayFlow.entity.Customer;
 import com.example.PayFlow.entity.Payment;
 import com.example.PayFlow.enums.Status;
@@ -54,5 +55,18 @@ public class PaymentService {
         savedPayment.setPixKey(apiResponse.brCode());
         
         return paymentRepository.save(savedPayment);
+    }
+
+    @Transactional
+    public void processWebhook(WebhookPayloadDTO payload) {
+
+        Payment payment = paymentRepository.findByExternalId(payload.data().id())
+                .orElseThrow(() -> new RuntimeException("Pagamento não encontrado."));
+
+        if ("transparent.completed".equals(payload.event()) || "checkout.completed".equals(payload.event())) {
+            payment.setStatus(Status.PAID);
+            paymentRepository.save(payment);
+            log.info("Pagamento {} atualizado para PAID com sucesso!", payment.getId());
+        }
     }
 }
